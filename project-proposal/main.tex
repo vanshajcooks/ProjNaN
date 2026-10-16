@@ -1,0 +1,594 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titling}
+
+% Prevent tiny overfull boxes caused by long technical words/phrases
+\setlength{\emergencystretch}{3em}
+
+% bvraghav-tiet-ucs503p-article.sty
+% Template-compatible definitions
+
+\makeatletter
+
+\newcommand{\BvrSetLabInstructor}[1]{%
+  \gdef\Bvr@LabInstructor{#1}%
+}
+
+\newcommand{\Bvr@LabInstructor}{Dr. Raghav B. Venkataramaiyer}
+
+\newcommand{\BvrLabInstructorValue}{%
+  \Bvr@LabInstructor
+}
+
+\makeatother
+
+
+% Title formatting
+
+\pretitle{%
+  \begin{center}
+  \bfseries
+  \fontsize{18pt}{21pt}
+  \selectfont
+}
+
+\makeatletter
+
+\newcommand{\BvrSubtitle}[1]{%
+  \posttitle{%
+    \par
+    \end{center}
+    \begin{center}
+    \large #1
+    \end{center}
+    \vskip 0.5em
+  }%
+}
+
+\makeatother
+
+
+
+
+\newcommand{\BvrHint}[1]{%
+  \texorpdfstring{%
+    {\normalfont\normalsize\itshape\hfill #1}%
+  }{}%
+}
+
+
+
+\title{ProjNaN}
+
+\BvrSetLabInstructor{Dr. Anushka}
+
+\BvrSubtitle{%
+    \textit{AI-Assisted Collaborative Project Tracking and Progress Management System}\\[0.5em]
+    Project Proposal for UCS503P \\
+    Submitted to: \BvrLabInstructorValue \\ \bfseries
+    Thapar Institute of Engineering and Technology%
+}
+
+\author{
+  Vanshaj Sharma, CSED%
+  \thanks{
+    Roll No: \texttt{1024160114},
+    Email: \texttt{vsharma2\_be24\@thapar.edu}
+  }
+  \and
+  Aryan Thakkar, CSED%
+  \thanks{
+    Roll No: \texttt{1024160100},
+    Email: \texttt{athakkar\_be24\@thapar.edu}
+  }
+}
+
+\date{\today}
+
+
+% DOCUMENT
+
+\begin{document}
+
+\maketitle
+
+
+\section{Higher-order goal%
+  \BvrHint{\ldots secondary framing}}
+
+This project aims to improve the transparency, accountability, and efficiency of collaborative software projects in educational environments by providing a unified platform for planning, tracking, and evaluating team progress. While the immediate target is a classroom containing multiple student project teams, the system is designed as a general project-monitoring platform that can later be extended to university-level research projects, student organizations, and organizational teams.
+
+The immediate engineering objective is to translate project planning and repository activity into a measurable, centralized, and deployable software workflow through task management, GitHub integration, automated progress analysis, and role-based dashboards.
+
+
+\section{Time-to-value%
+  \BvrHint{\ldots primary heuristic}}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item We will deliver meaningful increments quickly by first implementing the core project-management workflow: class creation, team formation, task creation, task tracking, and teacher dashboards.
+
+    \item GitHub integration will then be introduced to automatically collect repository activity such as commits, pull requests, and issues.
+
+    \item AI-assisted task verification will be added as an incremental layer that compares repository activity with predefined project tasks and identifies potentially completed tasks.
+
+    \item Weekly development iterations will be used to validate individual workflows early and reduce integration risk.
+
+    \item Success will be defined by how effectively the first usable version allows a teacher to understand project progress without manually inspecting every team's repository.
+
+\end{itemize}
+
+
+\section{Problem Statement}
+
+In project-based courses, instructors often supervise multiple teams simultaneously. A class may contain several teams of two to three students, with each team working on a different software project. Monitoring the actual progress of these projects can become difficult because planning, task tracking, source-code activity, and communication are frequently distributed across different platforms.
+
+Common pain points include:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Fragmentation:} tasks may be maintained in notebooks, messaging applications, spreadsheets, or issue trackers while the actual implementation exists separately in GitHub repositories.
+
+    \item \textbf{Limited instructor visibility:} teachers may have to manually inspect repositories, commits, pull requests, or demonstrations to determine whether a team is making meaningful progress.
+
+    \item \textbf{Weak individual accountability:} a project can appear active even when the workload is unevenly distributed among team members.
+
+    \item \textbf{Manual progress updates:} students must repeatedly update task status even when evidence of their work already exists in repository activity.
+
+    \item \textbf{Difficulty identifying stalled teams:} an instructor may not immediately know which teams have stopped progressing or which planned milestones are falling behind.
+
+    \item \textbf{Lack of structured feedback:} teachers have limited centralized information with which to provide timely and targeted suggestions.
+
+    \item \textbf{Low motivation for consistent progress:} traditional project tracking generally provides little incentive for students to complete smaller tasks consistently.
+
+\end{itemize}
+
+\textbf{Why this matters now (contextual relevance):} As software projects increasingly rely on Git-based development workflows, repository activity provides a valuable source of project-progress information. However, GitHub activity alone does not directly indicate whether predefined project objectives or tasks have been completed. A system that connects planned tasks with actual development activity can reduce manual monitoring while improving transparency and accountability.
+
+
+\section{Proposed Solution%
+  \BvrHint{\ldots Software Proposition}}
+
+\subsection{Overview}
+
+Build a \textbf{web-based ``ProjNaN'' system} that provides teachers and student teams with a centralized project-tracking workspace with the following components:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Class management:} teachers create a class and receive a unique class code that students can use to join.
+
+    \item \textbf{Team management:} students are organized into project teams, with each team having its own project workspace.
+
+    \item \textbf{Project planning:} teams define project goals, milestones, and To-Dos with daily, weekly, or monthly deadlines.
+
+    \item \textbf{GitHub integration:} each project can be linked to a GitHub repository so that relevant development activity can be retrieved automatically.
+
+    \item \textbf{AI-assisted task verification:} repository activity is analyzed against pending To-Dos to identify activities that potentially satisfy specific project tasks.
+
+    \item \textbf{Progress dashboards:} teachers can view team-level and class-level progress from a centralized dashboard.
+
+    \item \textbf{Individual contribution tracking:} students can view their own goals, completed tasks, and contribution activity.
+
+    \item \textbf{Gamification:} contribution points, achievements, and a class leaderboard can encourage consistent participation.
+
+    \item \textbf{Feedback and recommendations:} teachers can provide feedback and recommendations to teams based on their progress.
+
+    \item \textbf{Progress alerts:} the system can highlight teams or tasks that are overdue, inactive, or significantly behind their planned milestones.
+
+\end{itemize}
+
+
+\subsection{Core workflow}
+
+\begin{enumerate}[leftmargin=0.7cm]
+
+    \item A teacher creates a class and the system generates a unique class code.
+
+    \item Students join the class using the code and form or are assigned to project teams.
+
+    \item Each team creates a project workspace and defines project goals, milestones, and To-Dos.
+
+    \item To-Dos can be assigned to specific team members and given daily, weekly, or monthly deadlines.
+
+    \item The team links its GitHub repository with the project workspace.
+
+    \item The backend periodically retrieves relevant GitHub activity such as commits, pull requests, and issues.
+
+    \item The system maps repository activity to existing project tasks using task metadata and AI-assisted semantic matching.
+
+    \item Potentially completed tasks are identified and assigned a confidence score.
+
+    \item Confirmed task completion updates the team's project-progress indicators.
+
+    \item Students can inspect their individual contribution and progress.
+
+    \item Teachers can view the progress of all teams through a centralized dashboard.
+
+    \item Based on project status, teachers can provide feedback or assign additional tasks.
+
+    \item Contribution points can be updated as students complete meaningful tasks, enabling a class leaderboard.
+
+\end{enumerate}
+
+
+\subsection{User roles}
+
+The system will use role-based access control:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Teacher/Admin:} creates classes, manages teams, monitors projects, views analytics, provides feedback, and manages tasks.
+
+    \item \textbf{Team member:} creates and updates project tasks, connects GitHub, monitors team progress, and views contributions.
+
+    \item \textbf{Student:} manages assigned individual goals and views personal contribution statistics.
+
+    \item \textbf{System/AI service:} processes repository activity and generates task-alignment suggestions.
+
+\end{itemize}
+
+
+\subsection{Operational constraints for an educational setting}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Keep the solution usable on standard student laptops and mobile-responsive interfaces.
+
+    \item The core project-tracking functionality must remain usable even if GitHub integration or AI analysis is temporarily unavailable.
+
+    \item AI should assist progress verification rather than becoming a single point of failure for task management.
+
+    \item Repository access must follow GitHub authorization and permissions rather than requiring students to expose private repositories unnecessarily.
+
+    \item The initial implementation should prioritize workflow correctness, reliability, and usability over sophisticated AI research.
+
+    \item The system should be deployable using commonly available web hosting, managed databases, and API-based services.
+
+\end{itemize}
+
+
+\section{Solution Approach%
+  \BvrHint{\ldots Engineering focus}}
+
+This is an engineering course project, so the primary focus will be on building a reliable project-management workflow and integrating existing software services. AI will be used as an intelligent assistance layer rather than as the primary research contribution.
+
+
+\subsection{Project and task management%
+  \BvrHint{\ldots workflow design}}
+
+Each project will contain project objectives, milestones, tasks/To-Dos, task priority, task owner, task type or frequency, deadline, status, completion evidence, and related GitHub activity.
+
+Tasks may follow states such as:
+
+\begin{center}
+\textbf{Planned}
+$\rightarrow$
+\textbf{In Progress}
+$\rightarrow$
+\textbf{Verification Pending}
+$\rightarrow$
+\textbf{Completed}
+\end{center}
+
+This provides a consistent state machine for tracking project progress.
+
+
+\subsection{GitHub integration%
+  \BvrHint{\ldots repository activity}}
+
+The system will integrate with GitHub through its available APIs and, where appropriate, webhooks. Relevant repository events may include commits, pull requests, issues, pull-request merges, and branch activity.
+
+Repository events will be stored as project activity records. The system will associate these events with students and teams where possible. The integration provides objective development evidence without requiring students to manually report every development action.
+
+
+\subsection{AI-assisted task verification%
+  \BvrHint{\ldots intelligent assistance}}
+
+The AI subsystem will compare a project's predefined To-Dos with relevant repository activity.
+
+For example, a task such as ``Implement JWT-based user authentication'' may be compared against repository activity containing commits or pull requests describing authentication, token handling, login middleware, or related implementation changes.
+
+The system will generate a task-alignment assessment containing:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Candidate task.
+
+    \item Relevant repository activity.
+
+    \item Alignment/confidence score.
+
+    \item Short explanation of the detected relationship.
+
+    \item Verification state.
+
+\end{itemize}
+
+Rather than automatically assuming that every matching commit proves completion, the system will treat AI output as \textbf{evidence for task verification}. This reduces the risk of incorrectly marking tasks as complete because of vague or misleading commit messages.
+
+
+\subsection{Gamification%
+  \BvrHint{\ldots contribution incentives}}
+
+The system will introduce lightweight gamification to encourage consistent contribution. Possible mechanisms include points for verified task completion, milestone-completion bonuses, contribution streaks, team achievements, and a class leaderboard.
+
+Points will primarily reward meaningful, verified project activity rather than raw commit count. This avoids encouraging students to generate many small or meaningless commits merely to increase their score.
+
+
+\subsection{Web architecture%
+  \BvrHint{\ldots web-based solution}}
+
+A typical three-tier architecture will be used:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Frontend:} responsive web interface containing student workspaces, teacher dashboards, task boards, project analytics, and leaderboard views.
+
+    \item \textbf{Backend API:} authentication, authorization, project management, task state transitions, GitHub integration, AI analysis, scoring, and notification logic.
+
+    \item \textbf{Database:} stores users, classes, teams, projects, tasks, milestones, repository metadata, GitHub activity, AI verification results, feedback, and contribution records.
+
+\end{itemize}
+
+The system will maintain clear separation between user-facing workflows, business logic, external integrations, and persistent data.
+
+
+\subsection{CI/CD and fast delivery enabler}
+
+CI/CD will be used to:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Automatically build the application on every change.
+
+    \item Run unit and integration tests.
+
+    \item Perform linting and basic static checks.
+
+    \item Validate backend API functionality.
+
+    \item Produce repeatable deployment artifacts.
+
+    \item Deploy verified changes to a staging environment.
+
+    \item Enable frequent incremental releases.
+
+\end{itemize}
+
+
+\section{Evaluation Criterion%
+  \BvrHint{\ldots measurable and attributable}}
+
+We define success using metrics connected directly to the project's primary goal: improving project-progress visibility and reducing manual monitoring effort.
+
+
+\subsection{Primary evaluation metric}
+
+\textbf{Progress Monitoring Time (PMT):} the time required for an instructor to determine the current progress state of all teams in a class.
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Target:} reduce the time required to obtain a reliable class-level progress overview compared with manually inspecting project repositories and student updates.
+
+    \item \textbf{Attribution:} measured using task-completion records and timed pilot evaluations with and without the system.
+
+\end{itemize}
+
+
+\subsection{Secondary evaluation metrics}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Task verification accuracy:} percentage of AI-generated task-alignment suggestions that are correctly classified during evaluation.
+
+    \item \textbf{Progress visibility:} percentage of active projects for which the instructor can identify current milestone/task status from the dashboard.
+
+    \item \textbf{Manual update reduction:} reduction in the number of project-status updates that students must enter manually when relevant GitHub evidence is available.
+
+    \item \textbf{Individual contribution visibility:} ability to identify individual task ownership and verified contribution within a team.
+
+    \item \textbf{User satisfaction:} student and instructor feedback collected using a simple 1--5 usability/clarity questionnaire.
+
+    \item \textbf{System reliability:} availability of core project-management functionality during the pilot.
+
+    \item \textbf{Detection of inactive projects:} ability to identify teams with overdue tasks or prolonged periods of low repository activity.
+
+\end{itemize}
+
+
+\subsection{Pilot validation plan%
+  \BvrHint{\ldots high-level}}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Conduct a classroom-scale simulation using multiple project teams.
+
+    \item Include one instructor/admin account and approximately 3--10 simulated or real project teams with two to three students per team.
+
+    \item Create multiple tasks with different deadlines and priorities and link representative GitHub repositories.
+
+    \item Compare the instructor's ability to determine project status manually against the information available through ProjNaN.
+
+    \item Evaluate AI task-verification results against manually labeled examples to estimate the usefulness and accuracy of the matching system.
+
+\end{itemize}
+
+
+\section{Scalability%
+  \BvrHint{\ldots with foresight}}
+
+The proposition should scale in both theoretical and practical senses.
+
+\begin{enumerate}[leftmargin=0.7cm]
+
+    \item \textbf{Scalable (theoretically):} The system should support growth in users, teams, projects, tasks, and repository activity by:
+
+    \begin{itemize}[leftmargin=0.7cm]
+
+        \item decoupling frontend and backend components,
+
+        \item enabling pagination and indexing for common queries,
+
+        \item using stateless API design where appropriate,
+
+        \item processing GitHub synchronization and AI analysis asynchronously.
+
+    \end{itemize}
+
+
+    \item \textbf{Operationally deployable (practically):} The system should run on common web hosting using:
+
+    \begin{itemize}[leftmargin=0.7cm]
+
+        \item managed database infrastructure,
+
+        \item containerized or platform-hosted deployment,
+
+        \item CI/CD pipeline for staging and production.
+
+    \end{itemize}
+
+\end{enumerate}
+
+The initial class-level implementation can later be extended to multiple classes, university-wide project management, professor-managed research groups, departments, and organizational teams without fundamentally changing the core project-task model.
+
+
+\section{Engine availability heuristic}
+
+A mature set of ``engines'' (tooling/services) is available to implement this as a web-based project:
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Modern web framework for the frontend.
+
+    \item Backend framework for REST APIs and business logic.
+
+    \item Managed relational database for structured project data.
+
+    \item Authentication and role-based authorization.
+
+    \item GitHub API/webhook integration for repository activity.
+
+    \item LLM/API service for semantic task-activity matching.
+
+    \item Background job mechanism for asynchronous synchronization and AI processing.
+
+    \item Test framework for unit and integration tests.
+
+    \item CI runner for automated testing and builds.
+
+    \item Cloud or platform-based staging deployment.
+
+\end{itemize}
+
+We will use these mature components to focus on workflow design, correctness, integration, testing, observability, and measurement rather than implementing infrastructure or machine-learning models from scratch.
+
+
+\section{Project scope and deliverables%
+  \BvrHint{\ldots iteration-friendly}}
+
+\subsection{Initial deliverable%
+  \BvrHint{\ldots first iteration}}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Teacher/admin authentication.
+
+    \item Class creation and unique class-code generation.
+
+    \item Student joining through class code.
+
+    \item Team creation and team-member management.
+
+    \item Project creation.
+
+    \item Task/To-Do creation, assignment, and status management.
+
+    \item Project and team progress dashboard.
+
+    \item Basic individual contribution tracking.
+
+    \item GitHub repository linking.
+
+    \item Basic GitHub activity retrieval.
+
+    \item CI pipeline with automated tests and linting.
+
+    \item Deployment to a staging environment.
+
+\end{itemize}
+
+
+\subsection{Subsequent deliverables}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item Automated GitHub activity synchronization.
+
+    \item AI-assisted task/activity matching.
+
+    \item Confidence-based task verification with supporting evidence.
+
+    \item Milestone and deadline tracking.
+
+    \item Teacher feedback and recommendations.
+
+    \item Individual contribution dashboard.
+
+    \item Contribution points and achievements.
+
+    \item Class leaderboard.
+
+    \item Notifications for overdue tasks and project inactivity.
+
+    \item Improved project analytics and filtering.
+
+    \item Background processing for large repository activity.
+
+    \item Improved scalability and production deployment.
+
+\end{itemize}
+
+
+\section{Risks and mitigations}
+
+\begin{itemize}[leftmargin=0.7cm]
+
+    \item \textbf{Incorrect AI task verification:} AI may incorrectly associate repository activity with a task. Mitigation: use confidence scores, retain evidence, and allow human/team verification instead of blindly marking tasks complete.
+
+    \item \textbf{Gaming of contribution points:} students may generate meaningless commits to increase their score. Mitigation: avoid scoring raw commit counts and prioritize verified task completion, pull requests, and meaningful project milestones.
+
+    \item \textbf{GitHub API limitations:} repository synchronization may be affected by API limits or authorization issues. Mitigation: cache activity, synchronize incrementally, and ensure the core task-management system works independently of GitHub.
+
+    \item \textbf{Privacy and repository access:} projects may contain private or sensitive code. Mitigation: use authorized GitHub access, minimize stored repository data, and follow least-privilege principles.
+
+    \item \textbf{AI service availability/cost:} external AI services may become unavailable or expensive. Mitigation: isolate AI functionality behind a service layer and retain a manual task-verification workflow.
+
+    \item \textbf{Uneven team participation:} students may have different responsibilities that are not reflected by repository activity alone. Mitigation: combine task ownership, verified activity, and manually recorded contributions rather than relying on a single metric.
+
+    \item \textbf{Evaluation ambiguity:} project progress can be subjective. Mitigation: define measurable task states, milestones, timestamps, and verification criteria before evaluation.
+
+    \item \textbf{Scope expansion:} supporting university-wide or company-wide workflows too early may increase complexity. Mitigation: limit the initial implementation to a single class while designing extensible entities such as organizations, classes, teams, and projects.
+
+\end{itemize}
+
+
+\section{Summary}
+
+This project proposes \textbf{ProjNaN}, a deployable web-based platform for monitoring and managing collaborative student software projects. The system connects structured project planning with actual development activity by integrating task management, GitHub repository activity, AI-assisted task verification, progress dashboards, and lightweight gamification.
+
+The initial implementation will focus on a classroom containing multiple teams, allowing an instructor to create a class, organize teams, monitor project tasks, connect repositories, and obtain a centralized view of progress. Students will be able to manage individual and team goals while receiving visibility into their contributions.
+
+The project meets the software-engineering objectives by emphasizing a structured multi-user workflow, role-based access, database-backed state management, third-party API integration, automated testing, CI/CD, measurable evaluation, and scalability. AI is used as an assisting component for interpreting repository activity rather than being treated as the sole mechanism for project management.
+
+The architecture is intentionally extensible so that the same project-team-task model can later support university research projects, departments, and organizational teams. The immediate goal, however, remains a reliable and measurable classroom project-tracking system that reduces the manual effort required to understand project progress while improving accountability and transparency.
+
+
+\end{document}
